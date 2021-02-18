@@ -1,0 +1,2 @@
+Source: https://unicode.org/emoji/charts/full-emoji-list.html
+# Used twitter emoji images as these have less variation in color tone
