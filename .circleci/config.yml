@@ -4,13 +4,12 @@ version: 2.1
 # job commands
 jobs: 
   build-frontend: 
-    working_directory: /frontend/emojifier
     docker:       
       - image: cirrusci/flutter
     steps:       
       - run: flutter doctor   
   test-frontend:   
-    working_directory: /frontend/emojifier
+    working_directory: ../frontend/emojifier
     docker:       
       - image: cirrusci/flutter
     steps:       
