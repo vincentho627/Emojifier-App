@@ -13,8 +13,9 @@ jobs:
       - image: cirrusci/flutter
     steps:       
       - checkout
+      - run: cd frontend/emojifier/
       - run: ls
-#       - run: flutter test  
+      - run: flutter test  
 
 workflows:
   # Name the workflow "welcome"
