@@ -9,10 +9,11 @@ jobs:
     steps:       
       - run: flutter doctor   
   test-frontend:   
-    working_directory: ../frontend/emojifier
     docker:       
       - image: cirrusci/flutter
     steps:       
+      - checkout
+      - run: cd frontend/emojifier
       - run: flutter test  
 
 workflows:
