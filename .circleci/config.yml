@@ -1,0 +1,27 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+orbs:
+  # Declare a dependency on the flutter-orb
+  flutter: sayegh/flutter-orb@1.1.0
+# Orchestrate or schedule a set of jobs
+
+jobs: 
+  build: 
+    docker:       
+      - image: cirrusci/flutter
+    steps:       
+      - run: echo "hello world"   
+  test:   
+    docker:       
+      - image: cirrusci/flutter
+    steps:       
+      - run: echo "testing"  
+
+workflows:
+  # Name the workflow "welcome"
+  build-test-and-deploy:
+    # Run the welcome/run job in its own container
+    jobs:
+      - build
+      - test
