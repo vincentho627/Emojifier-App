@@ -13,11 +13,13 @@ def get_image_features(img_given):
     img = ImageOps.grayscale(img)
     img = img.resize((258, 258))
     img = np.asarray(img)
-    img = img.flatten()
 
     # normalize the image into the range [0, 1]
     img = img / 255
-    assert (66564,) == img.shape
+    assert (258, 258) == img.shape
+
+    # specify that there is only 1 color channel since its grayscale
+    img = img.reshape(258, 258, 1)
     return img
 
 
