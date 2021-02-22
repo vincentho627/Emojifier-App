@@ -6,7 +6,7 @@ EMOJI_DICT = {}
 
 PATH_NAME = str(pathlib.Path().absolute())
 PATH_EMOJILIST = PATH_NAME + "/../EmojiList.json"
-PATH_TO_DATASET = PATH_NAME + "/../Dataset"
+PATH_TO_DATASET = PATH_NAME + "/Dataset"
 PATH_TO_DATA_CSV = PATH_TO_DATASET + "/Data/legend.csv"
 PATH_TO_IMAGES = PATH_TO_DATASET + "/Images"
 

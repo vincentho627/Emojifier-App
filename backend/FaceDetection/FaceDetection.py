@@ -37,14 +37,14 @@ def detect_Faces(img, saveRect=True, saveImg=False, filename=''):
         array = np.asarray(data)
         df = pd.DataFrame(array, columns=["x", "y", "width", "height"])
         df["name"] = np.nan
-        df.to_csv("dataset/faces.csv")
+        df.to_csv("Dataset/faces.csv")
 
     if saveImg:
         for (x, y, w, h) in faces:
             cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
         # saving into a jpg
-        filename = "images/" + filename
+        filename = "Images/" + filename
         cv2.imwrite(filename, image)
 
     plt.imshow(image)

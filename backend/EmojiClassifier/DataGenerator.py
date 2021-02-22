@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image, ImageOps
 from tensorflow.python.keras.utils.np_utils import to_categorical
 
-from GenerateNNData.config import PATH_TO_DATA_CSV, PATH_TO_IMAGES, EMOJI_DICT
+from EmojiClassifier.config import PATH_TO_DATA_CSV, PATH_TO_IMAGES, EMOJI_DICT
 
 
 def get_image_features(img_given):
