@@ -10,6 +10,8 @@ PATH_TO_DATASET = PATH_NAME + "/Dataset"
 PATH_TO_DATA_CSV = PATH_TO_DATASET + "/Data/legend.csv"
 PATH_TO_IMAGES = PATH_TO_DATASET + "/Images"
 
+INPUT_SHAPE = (258, 258, 1)
+
 f = open(PATH_EMOJILIST)
 emojiList = json.load(f)["Emoji"]
 for i, emoji in enumerate(emojiList):

@@ -26,7 +26,8 @@ def get_image_features(img_given):
 def get_expected_emotion_array(emotion_given):
     """ Translates the given emotion into a numpy array where its corresponding index in the array will be 1,
     rest is 0 """
-    return to_categorical(EMOJI_DICT[emotion_given], 5)
+    length = len(EMOJI_DICT.keys())
+    return to_categorical(EMOJI_DICT[emotion_given], length)
 
 
 def data_generator():

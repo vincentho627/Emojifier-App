@@ -4,6 +4,9 @@
     "sadness",
     "neutral",
     "anger",
-    "surprise"
+    "surprise",
+    "disgust",
+    "fear",
+    "contempt"
   ]
 }
