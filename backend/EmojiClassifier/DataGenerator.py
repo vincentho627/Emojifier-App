@@ -4,6 +4,7 @@ from PIL import Image, ImageOps
 from tensorflow.python.keras.utils.np_utils import to_categorical
 
 from EmojiClassifier.config import PATH_TO_DATA_CSV, PATH_TO_IMAGES, EMOJI_DICT
+from sklearn.utils import shuffle
 
 
 def get_image_features(img_given):
@@ -26,14 +27,32 @@ def get_image_features(img_given):
 def get_expected_emotion_array(emotion_given):
     """ Translates the given emotion into a numpy array where its corresponding index in the array will be 1,
     rest is 0 """
+    emotion_given = emotion_given.lower()
     length = len(EMOJI_DICT.keys())
     return to_categorical(EMOJI_DICT[emotion_given], length)
 
 
-def data_generator():
-    """ Generator that gives training data for next image array and next emotion array """
+def shuffle_dataset():
+    """ Shuffles the data frame and returns the new shuffled data frame """
     df = pd.read_csv(PATH_TO_DATA_CSV)
-    for i in df.index:
+    df = shuffle(df)
+    return df
+
+
+def get_train_val_test_indexes(df):
+    """ Returns range for train, validation and test sets in the data frame """
+    total = len(df.index)
+    train = (0, int(total * 0.7))
+    val = (int(total * 0.7), int(total * 0.85))
+    test = (int(total * 0.85), total)
+    return train, val, test
+
+
+def data_generator(df, rg):
+    """ Generator that takes in a range in a data frame and gives training data for next image array and next emotion
+    array """
+    (start, end) = rg
+    for i in range(start, end):
         image = df['image'][i]
         emotion = df['emotion'][i]
         image_array = get_image_features(image)
@@ -42,4 +61,6 @@ def data_generator():
 
 
 if __name__ == "__main__":
-    print(next(data_generator()))
+    df = shuffle_dataset()
+    train, val, test = get_train_val_test_indexes(df)
+    print(next(data_generator(df, train)))
