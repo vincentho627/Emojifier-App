@@ -1,12 +1,11 @@
 {
   "Emoji": [
-    "happiness",
-    "sadness",
-    "neutral",
-    "anger",
-    "surprise",
+    "angry",
     "disgust",
     "fear",
-    "contempt"
+    "happy",
+    "neutral",
+    "sad",
+    "surprise"
   ]
 }
