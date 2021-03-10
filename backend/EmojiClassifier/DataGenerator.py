@@ -9,9 +9,9 @@ def train_Generator():
     """ Returns shuffled training generator that outputs the grayscale image array with the categorical emoji array """
     trainData = ImageDataGenerator(
         rescale=1. / 255,
-        rotation_range=30,
+        rotation_range=10,
         shear_range=0.3,
-        zoom_range=0.3,
+        zoom_range=0.1,
         width_shift_range=0.4,
         height_shift_range=0.4,
         horizontal_flip=True,
