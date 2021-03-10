@@ -11,5 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:emojifier/main.dart';
 
 void main() {
-
+  test('.split() splits the string on the delimiter', () {
+    expect('foo,bar,baz', allOf([
+      contains('foo'),
+      isNot(startsWith('bar')),
+      endsWith('baz')
+    ]));
+  });
 }
