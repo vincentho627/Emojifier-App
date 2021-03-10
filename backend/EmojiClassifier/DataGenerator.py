@@ -1,66 +1,56 @@
-import pandas as pd
-import numpy as np
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from PIL import Image, ImageOps
-from tensorflow.python.keras.utils.np_utils import to_categorical
+import numpy as np
 
-from EmojiClassifier.config import PATH_TO_DATA_CSV, PATH_TO_IMAGES, EMOJI_DICT
-from sklearn.utils import shuffle
+from EmojiClassifier.config import *
 
 
-def get_image_features(img_given):
-    """ Converting a given image into grayscale and turn it into (66564,) flattened numpy array for training """
-    path = PATH_TO_IMAGES + "/{}".format(img_given)
-    img = Image.open(path)
+def train_Generator():
+    """ Returns shuffled training generator that outputs the grayscale image array with the categorical emoji array """
+    trainData = ImageDataGenerator(
+        rescale=1. / 255,
+        rotation_range=30,
+        shear_range=0.3,
+        zoom_range=0.3,
+        width_shift_range=0.4,
+        height_shift_range=0.4,
+        horizontal_flip=True,
+        fill_mode='nearest')
+
+    trainGen = trainData.flow_from_directory(
+        PATH_TO_TRAIN,
+        color_mode='grayscale',
+        target_size=(IMG_ROW, IMG_COL),
+        batch_size=BATCH_SIZE,
+        class_mode='categorical',
+        shuffle=True)
+
+    return trainGen
+
+
+def validation_Generator():
+    """ Returns shuffled validation generator that outputs the grayscale image array with the categorical emoji array
+    """
+    validationData = ImageDataGenerator(rescale=1. / 255)
+
+    validationGen = validationData.flow_from_directory(
+        PATH_TO_VAL,
+        color_mode='grayscale',
+        target_size=(IMG_ROW, IMG_COL),
+        batch_size=BATCH_SIZE,
+        class_mode='categorical',
+        shuffle=True)
+
+    return validationGen
+
+
+def convert_Image_To_Training_Data(path):
+    """ Converts a given image path into a grayscale image array for the neural network for input """
+    img = Image.open(path).convert('LA')
     img = ImageOps.grayscale(img)
-    img = img.resize((258, 258))
-    img = np.asarray(img)
-
-    # normalize the image into the range [0, 1]
-    img = img / 255
-    assert (258, 258) == img.shape
-
-    # specify that there is only 1 color channel since its grayscale
-    img = img.reshape(258, 258, 1)
-    return img
-
-
-def get_expected_emotion_array(emotion_given):
-    """ Translates the given emotion into a numpy array where its corresponding index in the array will be 1,
-    rest is 0 """
-    emotion_given = emotion_given.lower()
-    length = len(EMOJI_DICT.keys())
-    return to_categorical(EMOJI_DICT[emotion_given], length)
-
-
-def shuffle_dataset():
-    """ Shuffles the data frame and returns the new shuffled data frame """
-    df = pd.read_csv(PATH_TO_DATA_CSV)
-    df = shuffle(df)
-    return df
-
-
-def get_train_val_test_indexes(df):
-    """ Returns range for train, validation and test sets in the data frame """
-    total = len(df.index)
-    train = (0, int(total * 0.7))
-    val = (int(total * 0.7), int(total * 0.85))
-    test = (int(total * 0.85), total)
-    return train, val, test
-
-
-def data_generator(df, rg):
-    """ Generator that takes in a range in a data frame and gives training data for next image array and next emotion
-    array """
-    (start, end) = rg
-    for i in range(start, end):
-        image = df['image'][i]
-        emotion = df['emotion'][i]
-        image_array = get_image_features(image)
-        emotion_array = get_expected_emotion_array(emotion)
-        yield image_array, emotion_array
-
-
-if __name__ == "__main__":
-    df = shuffle_dataset()
-    train, val, test = get_train_val_test_indexes(df)
-    print(next(data_generator(df, train)))
+    ar = np.array(img)
+    np.reshape(ar, (IMG_ROW, IMG_COL))
+    ar = np.expand_dims(ar, axis=2)
+    ar = np.expand_dims(ar, axis=0)
+    print(ar.shape)
+    return ar
