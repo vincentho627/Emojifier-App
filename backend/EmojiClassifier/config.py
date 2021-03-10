@@ -7,10 +7,15 @@ EMOJI_DICT = {}
 PATH_NAME = str(pathlib.Path().absolute())
 PATH_EMOJILIST = PATH_NAME + "/../EmojiList.json"
 PATH_TO_DATASET = PATH_NAME + "/Dataset"
-PATH_TO_DATA_CSV = PATH_TO_DATASET + "/Data/legend.csv"
-PATH_TO_IMAGES = PATH_TO_DATASET + "/Images"
+PATH_TO_TRAIN = PATH_TO_DATASET + "/images/train"
+PATH_TO_VAL = PATH_TO_DATASET + "/images/validation"
 
-INPUT_SHAPE = (258, 258, 1)
+NUM_TRAIN_SAMPLES = 28821
+NUM_VAL_SAMPLES = 7066
+EPOCHS = 25
+IMG_ROW, IMG_COL = 48, 48
+INPUT_SHAPE = (IMG_ROW, IMG_COL, 1)
+BATCH_SIZE = 32
 
 f = open(PATH_EMOJILIST)
 emojiList = json.load(f)["Emoji"]
