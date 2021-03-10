@@ -18,7 +18,7 @@ def train_NN_Model():
                             validation_steps=NUM_VAL_SAMPLES // BATCH_SIZE,
                             epochs=EPOCHS,
                             callbacks=[tensorBoardCallBack])
-    model.save_weights("./weights.h5")
+    model.save("./weights.h5")
 
 
 def test_NN_Model(path):
@@ -32,4 +32,4 @@ def test_NN_Model(path):
 
 
 if __name__ == "__main__":
-    test_NN_Model("./Dataset/images/train/angry/1.jpg")
+    train_NN_Model()
