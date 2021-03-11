@@ -5,7 +5,7 @@ import numpy as np
 from EmojiClassifier.config import *
 
 
-def train_generator():
+def train_generator(batch_size):
     """ Returns shuffled training generator that outputs the grayscale image array with the categorical emoji array """
     train_data = ImageDataGenerator(
         rescale=1. / 255,
@@ -21,7 +21,7 @@ def train_generator():
         PATH_TO_TRAIN,
         color_mode='grayscale',
         target_size=(IMG_ROW, IMG_COL),
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         class_mode='categorical',
         shuffle=True)
 
@@ -46,6 +46,40 @@ def validation_generator():
     return validation_gen
 
 
+def get_train_data_for_sklearn():
+    index = 0
+    x_train = []
+    y_train = []
+    train_gen = train_generator(1)
+
+    while index < NUM_TRAIN_SAMPLES:
+        print(index)
+        curr_x, curr_y = next(train_gen)
+        curr_x = curr_x.reshape((IMG_ROW, IMG_COL))
+        x_train.append(curr_x)
+        y_train.append(curr_y)
+        index += 1
+
+    return x_train, y_train
+
+
+def get_test_data_for_sklearn():
+    index = 0
+    x_test = []
+    y_test = []
+    train_gen = validation_generator()
+
+    while index < NUM_TRAIN_SAMPLES:
+        print(index)
+        curr_x, curr_y = next(train_gen)
+        curr_x = curr_x.reshape((IMG_ROW, IMG_COL))
+        x_test.append(curr_x)
+        y_test.append(curr_y)
+        index += 1
+
+    return x_test, y_test
+
+
 def convert_image_to_training_data(path):
     """ Converts a given image path into a grayscale image array for the neural network for input """
     img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
@@ -57,8 +91,4 @@ def convert_image_to_training_data(path):
 
 
 if __name__ == "__main__":
-    l1, l2 = next(train_generator())
-    labels = train_generator().class_indices
-    labels = dict((v, k) for k, v in labels.items())
-    print(labels)
-    print(l2[0].shape)
+    x, y = get_train_data_for_sklearn()

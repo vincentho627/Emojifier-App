@@ -16,6 +16,7 @@ EPOCHS = 50
 IMG_ROW, IMG_COL = 48, 48
 INPUT_SHAPE = (IMG_ROW, IMG_COL, 1)
 BATCH_SIZE = 32
+NUM_OUTPUTS = 5
 
 f = open(PATH_EMOJILIST)
 emojiList = json.load(f)["Emoji"]

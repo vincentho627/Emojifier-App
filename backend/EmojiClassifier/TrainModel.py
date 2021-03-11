@@ -3,7 +3,8 @@ from tensorflow.python.keras.callbacks import TensorBoard, EarlyStopping
 from tensorflow.python.keras.models import load_model
 import matplotlib.pyplot as plt
 
-from EmojiClassifier.DataGenerator import train_generator, validation_generator, convert_image_to_training_data
+from EmojiClassifier.DataGenerator import train_generator, validation_generator, convert_image_to_training_data, \
+    get_test_data_for_sklearn
 from EmojiClassifier.config import *
 from EmojiClassifier.Model import create_model
 
@@ -19,7 +20,7 @@ def train_nn_model():
                                              )
     callbacks = [tensor_board_call_back, early_stopping_call_back]
     model = create_model()
-    train_gen = train_generator()
+    train_gen = train_generator(BATCH_SIZE)
     validation_gen = validation_generator()
     history = model.fit_generator(train_gen,
                                   steps_per_epoch=NUM_TRAIN_SAMPLES // BATCH_SIZE,
@@ -41,6 +42,13 @@ def train_nn_model():
     plt.show()
 
 
+def train_sklearn_models():
+    """ Trains scikit learn models to see which model does best """
+    # TODO make and train with scikit learn and see which one has the best performance
+    x_train, y_train = get_test_data_for_sklearn()
+    return 0
+
+
 def test_nn_model(path):
     """ Tests the model with a given path and returns the predicted emotion """
     model = load_model("./test.h5")
@@ -48,6 +56,13 @@ def test_nn_model(path):
     y = model.predict(ar)
     y = int(np.argmax(y, axis=1))
     return emojiList[y]
+
+
+def test_sklearn_model():
+    """ Tests with scikit learn models returns the predicted emotion """
+    # TODO test the models with scikit learn and see which one has the best performance
+    x_test, y_test = get_test_data_for_sklearn()
+    return 0
 
 
 if __name__ == "__main__":
