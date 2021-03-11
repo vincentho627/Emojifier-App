@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './homePage.dart';
+import './home_page.dart';
+
+const primaryColor = Color(0xFF0A0E21);
 
 void main() => runApp(
       MaterialApp(
@@ -12,8 +14,8 @@ class EmojiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        primaryColor: Color(0xFF0A0E21),
-        scaffoldBackgroundColor: Color(0xFF0A0E21),
+        primaryColor: primaryColor,
+        scaffoldBackgroundColor: primaryColor,
       ),
       home: HomePage(),
     );
