@@ -1,31 +1,43 @@
 import numpy as np
 from tensorflow.python.keras.callbacks import TensorBoard
 from tensorflow.python.keras.models import load_model
+import matplotlib.pyplot as plt
 
-from EmojiClassifier.DataGenerator import train_Generator, validation_Generator, convert_Image_To_Training_Data
+from EmojiClassifier.DataGenerator import train_generator, validation_generator, convert_image_to_training_data
 from EmojiClassifier.config import *
-from EmojiClassifier.Model import create_Model
+from EmojiClassifier.Model import create_model
 
 
-def train_NN_Model():
+def train_nn_model():
     """ Trains the model with the train and validation generators and saves the weights in weights.h5 file """
     tensorBoardCallBack = TensorBoard(log_dir="./logs", histogram_freq=1)
-    model = create_Model()
-    trainGen = train_Generator()
-    validationGen = validation_Generator()
-    H = model.fit_generator(trainGen,
-                            steps_per_epoch=NUM_TRAIN_SAMPLES // BATCH_SIZE,
-                            validation_data=validationGen,
-                            validation_steps=NUM_VAL_SAMPLES // BATCH_SIZE,
-                            epochs=EPOCHS,
-                            callbacks=[tensorBoardCallBack])
+    model = create_model()
+    trainGen = train_generator()
+    validationGen = validation_generator()
+    history = model.fit_generator(trainGen,
+                                  steps_per_epoch=NUM_TRAIN_SAMPLES // BATCH_SIZE,
+                                  validation_data=validationGen,
+                                  validation_steps=NUM_VAL_SAMPLES // BATCH_SIZE,
+                                  epochs=EPOCHS,
+                                  callbacks=[tensorBoardCallBack])
     model.save("./current.h5")
 
+    # plotting graph to visualise accuracy
+    plt.plot(history.history['accuracy'], label='accuracy')
+    plt.plot(history.history['val_accuracy'], label='val_accuracy')
+    plt.plot(history.history['loss'], label='loss')
+    plt.plot(history.history['val_loss'], label='val_loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy')
+    plt.ylim([0, 1])
+    plt.legend(loc='lower right')
+    plt.show()
 
-def test_NN_Model(path):
+
+def test_nn_model(path):
     """ Tests the model with a given path and returns the predicted emotion """
     model = load_model("./test.h5")
-    ar = convert_Image_To_Training_Data(path)
+    ar = convert_image_to_training_data(path)
     y = model.predict(ar)
     y = int(np.argmax(y, axis=1))
     return emojiList[y]
@@ -33,4 +45,4 @@ def test_NN_Model(path):
 
 if __name__ == "__main__":
     # train_NN_Model()
-    print(test_NN_Model("./Dataset/manual/img.png"))
+    print(test_nn_model("/Users/vho001/Desktop/smile.png"))

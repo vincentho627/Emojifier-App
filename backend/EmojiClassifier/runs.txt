@@ -1,0 +1,7 @@
+### REPORT FOR RUNS ###
+
+First run takes RELU as the activation functions inside the hidden layers and returns training accuracy of 53% and val
+accuracy of 57%
+
+Second run takes RELU as activation functions, but removed fear and disgust directory, running with 50 epochs, adjusted
+the rotation range and zoom range to 10 and 0.1 respectively, overall accuracy for training is 70% and val is 70+%
