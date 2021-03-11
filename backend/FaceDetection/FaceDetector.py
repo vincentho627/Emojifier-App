@@ -36,14 +36,14 @@ def detect_Faces(img, saveRect=True, saveLabelledImg=False, filename='', plot=Fa
         index = 0
         for (x, y, w, h) in faces:
             # cropped image
-            faceImage = image[y:y + h, x:x + w]
-            faceImage = cv2.cvtColor(faceImage, cv2.COLOR_BGR2RGB)
-            faceFileName = "{}/{}.jpg".format("Images", index)
+            face_image = image[y:y + h, x:x + w]
+            face_image = cv2.cvtColor(face_image, cv2.COLOR_BGR2RGB)
+            face_file_name = "{}/{}.jpg".format("Images", index)
 
             # save cropped image inside image folder
-            cv2.imwrite(faceFileName, faceImage)
+            cv2.imwrite(face_file_name, face_image)
             index += 1
-            data.append([faceFileName, x, y, w, h])
+            data.append([face_file_name, x, y, w, h])
 
         array = np.asarray(data)
         df = pd.DataFrame(array, columns=["image", "x", "y", "width", "height"])

@@ -1,5 +1,5 @@
 import numpy as np
-from tensorflow.python.keras.callbacks import TensorBoard
+from tensorflow.python.keras.callbacks import TensorBoard, EarlyStopping
 from tensorflow.python.keras.models import load_model
 import matplotlib.pyplot as plt
 
@@ -10,16 +10,23 @@ from EmojiClassifier.Model import create_model
 
 def train_nn_model():
     """ Trains the model with the train and validation generators and saves the weights in weights.h5 file """
-    tensorBoardCallBack = TensorBoard(log_dir="./logs", histogram_freq=1)
+    tensor_board_call_back = TensorBoard(log_dir="./logs", histogram_freq=1)
+    early_stopping_call_back = EarlyStopping(monitor='val_loss',
+                                             min_delta=0.01,
+                                             patience=3,
+                                             verbose=1,
+                                             restore_best_weights=True
+                                             )
+    callbacks = [tensor_board_call_back, early_stopping_call_back]
     model = create_model()
-    trainGen = train_generator()
-    validationGen = validation_generator()
-    history = model.fit_generator(trainGen,
+    train_gen = train_generator()
+    validation_gen = validation_generator()
+    history = model.fit_generator(train_gen,
                                   steps_per_epoch=NUM_TRAIN_SAMPLES // BATCH_SIZE,
-                                  validation_data=validationGen,
+                                  validation_data=validation_gen,
                                   validation_steps=NUM_VAL_SAMPLES // BATCH_SIZE,
                                   epochs=EPOCHS,
-                                  callbacks=[tensorBoardCallBack])
+                                  callbacks=callbacks)
     model.save("./current.h5")
 
     # plotting graph to visualise accuracy
@@ -45,4 +52,4 @@ def test_nn_model(path):
 
 if __name__ == "__main__":
     # train_NN_Model()
-    print(test_nn_model("/Users/vho001/Desktop/smile.png"))
+    print(test_nn_model("./Dataset/images/train/happy/32.jpg"))

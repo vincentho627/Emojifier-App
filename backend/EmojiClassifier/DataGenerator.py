@@ -7,7 +7,7 @@ from EmojiClassifier.config import *
 
 def train_generator():
     """ Returns shuffled training generator that outputs the grayscale image array with the categorical emoji array """
-    trainData = ImageDataGenerator(
+    train_data = ImageDataGenerator(
         rescale=1. / 255,
         rotation_range=10,
         shear_range=0.3,
@@ -17,7 +17,7 @@ def train_generator():
         horizontal_flip=True,
         fill_mode='nearest')
 
-    trainGen = trainData.flow_from_directory(
+    train_gen = train_data.flow_from_directory(
         PATH_TO_TRAIN,
         color_mode='grayscale',
         target_size=(IMG_ROW, IMG_COL),
@@ -26,15 +26,15 @@ def train_generator():
         shuffle=True)
 
     # TODO testing for convert image to training data, ensure that the output has shape (32, 48, 48, 1) and (5,)
-    return trainGen
+    return train_gen
 
 
 def validation_generator():
     """ Returns shuffled validation generator that outputs the grayscale image array with the categorical emoji array
     """
-    validationData = ImageDataGenerator(rescale=1. / 255)
+    validation_data = ImageDataGenerator(rescale=1. / 255)
 
-    validationGen = validationData.flow_from_directory(
+    validation_gen = validation_data.flow_from_directory(
         PATH_TO_VAL,
         color_mode='grayscale',
         target_size=(IMG_ROW, IMG_COL),
@@ -43,7 +43,7 @@ def validation_generator():
         shuffle=True)
 
     # TODO testing for convert image to training data, ensure that the output has shape (32, 48, 48, 1) and (5,)
-    return validationGen
+    return validation_gen
 
 
 def convert_image_to_training_data(path):
