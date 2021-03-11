@@ -72,7 +72,7 @@ def create_random_forest():
 
 
 def create_mlp_classifier():
-    return MLPClassifier(activation="logistic", hidden_layer_sizes=(256, 128, 64), solver="adam", batch_size=32,
+    return MLPClassifier(activation="relu", hidden_layer_sizes=(256, 128, 64), solver="adam", batch_size=32,
                          verbose=True)
 
 
