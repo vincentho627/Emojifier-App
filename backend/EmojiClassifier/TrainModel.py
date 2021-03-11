@@ -1,12 +1,12 @@
-import numpy as np
+from sklearn import metrics
+from sklearn.model_selection import train_test_split
 from tensorflow.python.keras.callbacks import TensorBoard, EarlyStopping
-from tensorflow.python.keras.models import load_model
 import matplotlib.pyplot as plt
+import numpy as np
 
-from EmojiClassifier.DataGenerator import train_generator, validation_generator, convert_image_to_training_data, \
-    get_test_data_for_sklearn
+from EmojiClassifier.DataGenerator import train_generator, validation_generator, get_train_data_for_sklearn
 from EmojiClassifier.config import *
-from EmojiClassifier.Model import create_model
+from EmojiClassifier.Model import create_model, create_random_forest, create_mlp_classifier
 
 
 def train_nn_model():
@@ -45,26 +45,24 @@ def train_nn_model():
 def train_sklearn_models():
     """ Trains scikit learn models to see which model does best """
     # TODO make and train with scikit learn and see which one has the best performance
-    x_train, y_train = get_test_data_for_sklearn()
-    return 0
 
+    models = [create_random_forest, create_mlp_classifier]
+    modelNames = ["Random Forest", "MLP Classifier"]
 
-def test_nn_model(path):
-    """ Tests the model with a given path and returns the predicted emotion """
-    model = load_model("./test.h5")
-    ar = convert_image_to_training_data(path)
-    y = model.predict(ar)
-    y = int(np.argmax(y, axis=1))
-    return emojiList[y]
+    x_train, y_train = get_train_data_for_sklearn()
+    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, random_state=3, test_size=0.2, )
 
-
-def test_sklearn_model():
-    """ Tests with scikit learn models returns the predicted emotion """
-    # TODO test the models with scikit learn and see which one has the best performance
-    x_test, y_test = get_test_data_for_sklearn()
-    return 0
+    for i in range(len(models)):
+        name = modelNames[i]
+        print(f'Training {name}')
+        model = models[i]()
+        model.fit(x_train, y_train)
+        y_val_predict = model.predict(x_val)
+        print('Mean Absolute Error:', metrics.mean_absolute_error(y_val, y_val_predict))
+        print('Mean Squared Error:', metrics.mean_squared_error(y_val, y_val_predict))
+        print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_val, y_val_predict)))
 
 
 if __name__ == "__main__":
     # train_NN_Model()
-    print(test_nn_model("./Dataset/images/train/happy/32.jpg"))
+    train_sklearn_models()

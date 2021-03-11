@@ -55,7 +55,8 @@ def get_train_data_for_sklearn():
     while index < NUM_TRAIN_SAMPLES:
         print(index)
         curr_x, curr_y = next(train_gen)
-        curr_x = curr_x.reshape((IMG_ROW, IMG_COL))
+        curr_x = curr_x.reshape((IMG_ROW * IMG_COL))
+        curr_y = curr_y.reshape((NUM_OUTPUTS, ))
         x_train.append(curr_x)
         y_train.append(curr_y)
         index += 1
@@ -72,7 +73,8 @@ def get_test_data_for_sklearn():
     while index < NUM_TRAIN_SAMPLES:
         print(index)
         curr_x, curr_y = next(train_gen)
-        curr_x = curr_x.reshape((IMG_ROW, IMG_COL))
+        curr_x = curr_x.reshape((IMG_ROW * IMG_COL))
+        curr_y = curr_y.reshape((NUM_OUTPUTS, ))
         x_test.append(curr_x)
         y_test.append(curr_y)
         index += 1
