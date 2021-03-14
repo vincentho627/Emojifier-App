@@ -35,7 +35,7 @@ def create_model():
     model.add(MaxPooling2D(2))
     model.add(Dropout(0.2))
 
-    # # Block 4
+    # Block 4
     model.add(Conv2D(256, 3, kernel_initializer='he_normal', activation="relu", padding='same'))
     model.add(BatchNormalization())
     model.add(Conv2D(256, 3, kernel_initializer='he_normal', activation="relu", padding='same'))
@@ -44,17 +44,25 @@ def create_model():
     model.add(Dropout(0.2))
 
     # Block 5
+    model.add(Conv2D(512, 3, kernel_initializer='he_normal', activation="relu", padding='same'))
+    model.add(BatchNormalization())
+    model.add(Conv2D(512, 3, kernel_initializer='he_normal', activation="relu", padding='same'))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(2))
+    model.add(Dropout(0.2))
+
+    # Block 6
     model.add(Flatten())
     model.add(Dense(128, kernel_initializer='he_normal', activation="relu"))
     model.add(BatchNormalization())
     model.add(Dropout(0.5))
 
-    # Block 6
+    # Block 7
     model.add(Dense(64, kernel_initializer='he_normal', activation="relu"))
     model.add(BatchNormalization())
     model.add(Dropout(0.5))
 
-    # Block 7
+    # Block 8
     model.add(Dense(NUM_OUTPUTS, activation="softmax"))
 
     adam = Adam(learning_rate=0.001)
