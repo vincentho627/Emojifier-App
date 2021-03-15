@@ -2,7 +2,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
 from tensorflow.python.keras.models import Sequential
-from thinc.optimizers import Adam
+from tensorflow.python.keras.optimizer_v2.adam import Adam
 
 from EmojiClassifier.config import INPUT_SHAPE, NUM_OUTPUTS
 

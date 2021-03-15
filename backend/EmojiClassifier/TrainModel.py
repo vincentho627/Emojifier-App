@@ -64,5 +64,5 @@ def train_sklearn_models():
 
 
 if __name__ == "__main__":
-    # train_NN_Model()
-    train_sklearn_models()
+    train_nn_model()
+    # train_sklearn_models()
