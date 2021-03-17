@@ -29,7 +29,7 @@ def train_generator(batch_size):
     return train_gen
 
 
-def validation_generator():
+def validation_generator(batch_size=BATCH_SIZE):
     """ Returns shuffled validation generator that outputs the grayscale image array with the categorical emoji array
     """
     validation_data = ImageDataGenerator(rescale=1. / 255)
@@ -38,7 +38,7 @@ def validation_generator():
         PATH_TO_VAL,
         color_mode='grayscale',
         target_size=(IMG_ROW, IMG_COL),
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         class_mode='categorical',
         shuffle=True)
 
