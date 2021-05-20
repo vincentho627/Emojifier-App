@@ -4,7 +4,7 @@ import pathlib
 # ====== GLOBAL VARIABLES ====== #
 EMOJI_DICT = {}
 
-PATH_NAME = str(pathlib.Path().absolute())
+PATH_NAME = str(pathlib.Path().absolute()) + "/EmojiClassifier"
 PATH_EMOJILIST = PATH_NAME + "/../EmojiList.json"
 PATH_TO_DATASET = PATH_NAME + "/Dataset"
 PATH_TO_TRAIN = PATH_TO_DATASET + "/images/train"

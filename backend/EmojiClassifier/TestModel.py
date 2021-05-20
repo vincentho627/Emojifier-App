@@ -7,9 +7,9 @@ from EmojiClassifier.DataGenerator import convert_image_to_training_data, get_te
     validation_generator
 
 
-def test_nn_model(path):
+def get_emotion(path):
     """ Tests the model with a given path and returns the predicted emotion """
-    model = load_model("./current.h5")
+    model = load_model("../Models/current.h5")
     ar = convert_image_to_training_data(path)
     y = model.predict(ar)
     y = int(np.argmax(y, axis=1))
@@ -19,7 +19,7 @@ def test_nn_model(path):
 def test_nn_model_with_validation():
     validation_gen = validation_generator(1)
     index = 0
-    model = load_model("./current.h5")
+    model = load_model("../Models/current.h5")
 
     y_predicts = []
     y_labels = []

@@ -1,0 +1,8 @@
+numpy
+cv2
+matplotlib
+pandas
+imageio
+sklearn
+tensorflow
+flask
