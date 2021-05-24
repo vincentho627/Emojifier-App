@@ -1,5 +1,5 @@
-import 'package:emojifier/icon_content.dart';
-import 'package:emojifier/reusable_card.dart';
+import 'package:emojifier/components/icon_content.dart';
+import 'package:emojifier/components/reusable_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +8,8 @@ const primaryColor = Color(0xFF1D1E33);
 const comingSoon = "Coming Soon!";
 
 class HomePage extends StatefulWidget {
+  static const String id = "HomePage";
+
   @override
   State<StatefulWidget> createState() => _HomePage();
 }

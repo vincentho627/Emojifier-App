@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "853327329610",
+    "project_id": "emojifier-463ea",
+    "storage_bucket": "emojifier-463ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853327329610:android:83db5f45b16b7b4e7529b3",
+        "android_client_info": {
+          "package_name": "com.vho.emojifier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853327329610-hghan8qkcm7du1k2fknmiu1ohsakttd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvH_eAxpdqyTWit82Q8xwE2Yih0DpISSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853327329610-hghan8qkcm7du1k2fknmiu1ohsakttd4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "853327329610-kaco20kjijdkd7l6k8tsmql6ovv4d46s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.emojifier"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
