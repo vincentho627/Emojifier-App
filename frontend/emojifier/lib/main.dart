@@ -1,6 +1,8 @@
+import 'package:emojifier/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_page.dart';
 import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
 
 const primaryColor = Color(0xFF0A0E21);
 
@@ -17,9 +19,11 @@ class EmojiPage extends StatelessWidget {
           //    bodyText1: TextStyle(color: Colors.black54),
           // )
       ),
-      home: LoginScreen(),
+      home: WelcomeScreen(),
       routes: {
+        WelcomeScreen.id: (context) => WelcomeScreen(),
         HomePage.id: (context) => HomePage(),
+        RegisterScreen.id: (context) => RegisterScreen(),
         LoginScreen.id: (context) => LoginScreen()
       },
     );
