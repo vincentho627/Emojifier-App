@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'screens/home_page.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
+import 'screens/camera_access.dart';
+
 
 const primaryColor = Color(0xFF0A0E21);
 
@@ -24,7 +26,8 @@ class EmojiPage extends StatelessWidget {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         HomePage.id: (context) => HomePage(),
         RegisterScreen.id: (context) => RegisterScreen(),
-        LoginScreen.id: (context) => LoginScreen()
+        LoginScreen.id: (context) => LoginScreen(),
+        CameraAccess.id: (context) => CameraAccess(null)
       },
     );
   }
