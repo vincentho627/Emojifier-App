@@ -1,9 +1,9 @@
+import 'package:emojifier/screens/image_convertion_screen.dart';
 import 'package:emojifier/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_page.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
-import 'screens/camera_access.dart';
 
 
 const primaryColor = Color(0xFF0A0E21);
@@ -27,7 +27,7 @@ class EmojiPage extends StatelessWidget {
         HomePage.id: (context) => HomePage(),
         RegisterScreen.id: (context) => RegisterScreen(),
         LoginScreen.id: (context) => LoginScreen(),
-        CameraAccess.id: (context) => CameraAccess(null)
+        ImageScreen.id: (context) => ImageScreen(),
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:emojifier/components/camera_arguments.dart';
 import 'package:emojifier/components/icon_content.dart';
 import 'package:emojifier/components/reusable_card.dart';
+import 'package:emojifier/screens/image_convertion_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -82,8 +83,9 @@ class _HomePage extends State<HomePage> {
                       color: primaryColor,
                       icon: IconContent(
                         icon: CupertinoIcons.photo,
-                        text: comingSoon,
+                        text: "Picture Converter",
                       ),
+                      onTap: (() => Navigator.pushNamed(context, ImageScreen.id)),
                     ))
               ],
             ),
