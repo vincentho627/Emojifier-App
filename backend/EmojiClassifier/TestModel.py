@@ -9,7 +9,7 @@ from EmojiClassifier.DataGenerator import convert_image_to_training_data, get_te
 
 def get_emotion(path):
     """ Tests the model with a given path and returns the predicted emotion """
-    model = load_model("../Models/current.h5")
+    model = load_model("Models/current.h5")
     ar = convert_image_to_training_data(path)
     y = model.predict(ar)
     y = int(np.argmax(y, axis=1))

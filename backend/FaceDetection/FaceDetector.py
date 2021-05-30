@@ -8,7 +8,7 @@ import numpy as np
 
 from FaceDetection.config import PATH_TO_IMAGES, DATASET_DIRECTORY
 
-faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
+faceCascade = cv2.CascadeClassifier('FaceDetection/Cascades/haarcascade_frontalface_default.xml')
 
 
 def open_Image(img):
@@ -20,7 +20,11 @@ def open_Image(img):
 
 def detect_Faces(img, saveRect=True, saveLabelledImg=False, filename='', plot=False):
     """ Detect faces and stores the coordinates in a csv dataset and can save labelled image """
-    image, gray_image = open_Image(img)
+    # image, gray_image = open_Image(img)
+    # print(image)
+    # gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(gray_image, scaleFactor=1.2, minNeighbors=5, minSize=(30, 30))
 
     print("Found {0} faces!".format(len(faces)))
@@ -38,7 +42,7 @@ def detect_Faces(img, saveRect=True, saveLabelledImg=False, filename='', plot=Fa
             # cropped image
             face_image = image[y:y + h, x:x + w]
             face_image = cv2.cvtColor(face_image, cv2.COLOR_BGR2RGB)
-            face_file_name = "{}/{}.jpg".format("Images", index)
+            face_file_name = "{}/{}.jpg".format("FaceDetection/Images", index)
 
             # save cropped image inside image folder
             cv2.imwrite(face_file_name, face_image)
@@ -74,4 +78,4 @@ def detect_Faces(img, saveRect=True, saveLabelledImg=False, filename='', plot=Fa
 
 
 if __name__ == "__main__":
-    detect_Faces("/Users/vho001/Desktop/2.jpg")
+    detect_Faces("./test.jpg")
